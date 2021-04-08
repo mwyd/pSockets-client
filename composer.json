@@ -1,0 +1,25 @@
+{
+    "name": "mwyd/psockets",
+    "type": "library",
+    "description": "Synchronous PHP websocket client",
+    "keywords": ["websocket", "websockets", "client"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michal Wydrzynski",
+            "email": "michalwydrzynski@outlook.com",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "src/pSockets/Utils/functions.php"
+        ],
+        "psr-4": {
+            "pSockets\\": "src/pSockets"
+        }
+    },
+    "require": {
+        "php": "^8.0"
+    }
+}
