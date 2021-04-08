@@ -1,6 +1,6 @@
 # pSockets-client
 
-PHP websocket client
+Synchronous PHP websocket client
 
 # Usage
 
