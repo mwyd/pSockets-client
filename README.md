@@ -2,6 +2,12 @@
 
 Synchronous PHP websocket client
 
+# Installation
+
+```
+composer require mwyd/psockets
+```
+
 # Usage
 
 ```php
