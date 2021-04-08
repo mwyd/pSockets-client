@@ -25,6 +25,7 @@ class MyClient extends WsClient
         try
         {
             $json = $message->json();
+            $this->send($message, $message->isBinary());
         }
         catch(\Exception $e)
         {
