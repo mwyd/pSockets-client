@@ -163,7 +163,7 @@ abstract class WsClient implements WsConnection
 
         if(false === ($pos = strpos($buffer, "\r\n\r\n"))) return;
 
-        $response = splitHeaders(substr($buffer, 0, $pos + 4));
+        $response = splitHeaders($this->bufferRead('r', $pos + 4));
 
         foreach(self::REQUIRED_RESPONSE_HEADERS as $key => $val)
         {
@@ -175,10 +175,9 @@ abstract class WsClient implements WsConnection
         }
 
         $this->setState(WsConnection::CST_OPEN);
-        $this->bufferRead('r', $pos + 4);
+        $this->setHandshake(true);
 
         $this->logger->log('Connected', 1);
-        $this->setHandshake(true);
 
         $this->onOpen();
         $this->handleBuffer();
@@ -203,7 +202,7 @@ abstract class WsClient implements WsConnection
                 {
                     case Event::E_READ:
                         $read = $this->clientSocket->read($this->config['BUFFER_SIZE']);
-                        if($read !== false)
+                        if($read !== false && $this->getState() == WsConnection::CST_OPEN)
                         {
                             $this->bufferWrite('r', $read);
                             $this->handleBuffer();
@@ -230,7 +229,7 @@ abstract class WsClient implements WsConnection
 
     private function handleBuffer() : void
     {
-        foreach($handler = $this->handleFrames(false) as $e)
+        foreach($this->handleFrames(false) as $e)
         {
             switch($e->type)
             {
