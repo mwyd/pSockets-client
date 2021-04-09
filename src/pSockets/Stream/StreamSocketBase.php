@@ -18,8 +18,10 @@ trait StreamSocketBase
 
     public function setBlocking(bool $enable) : bool
     {
-        $this->block = $enable;
-        return stream_set_blocking($this->stream, $enable);
+        $success = stream_set_blocking($this->stream, $enable);
+        if($success) $this->block = $enable;
+
+        return $success;
     }
 
     public function isBlocking() : bool
