@@ -75,7 +75,7 @@ abstract class WsClient implements WsConnection
         $this->handleMessages();
     }
 
-    public function send(string $message, bool $isBinary = false) : void
+    public function send(string $message, bool $isBinary = false, int $fragmentSize = 0) : void
     {
         if(in_array($this->getState(), [WsConnection::CST_CLOSED, WsConnection::CST_CLOSING]))
         {
@@ -83,7 +83,27 @@ abstract class WsClient implements WsConnection
             return;
         }
 
-        $this->bufferWrite('w', (new Frame)->encode($message, ($isBinary) ? Frame::OP['BIN'] : Frame::OP['TXT'], true)->applyMask());
+        $opcode = $isBinary ? Frame::OP['BIN'] : Frame::OP['TXT'];
+
+        if($fragmentSize < 1 || $fragmentSize >= strlen($message))
+        {
+            $buffer = (new Frame)->encode($message, $opcode, true)->applyMask();
+        }
+        else
+        {
+            $fragments = str_split($message, $fragmentSize);
+
+            $buffer = (new Frame)->encode($fragments[0], $opcode, true, false)->applyMask();
+
+            for($i = 1; $i < count($fragments) - 1; $i++)
+            {
+                $buffer .= (new Frame)->encode($fragments[$i], Frame::OP['CON'], true, false)->applyMask();
+            }
+
+            $buffer .= (new Frame)->encode($fragments[count($fragments) - 1], Frame::OP['CON'], true, true)->applyMask();
+        }
+
+        $this->bufferWrite('w', $buffer);
     }
 
     public function close() : void

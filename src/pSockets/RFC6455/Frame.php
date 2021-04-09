@@ -155,11 +155,11 @@ class Frame
         return $this;
     }
 
-    public function encode(string $data, int $opcode = self::OP['TXT'], bool $mask = false) : self
+    public function encode(string $data, int $opcode = self::OP['TXT'], bool $mask = false, bool $fin = true) : self
     {
         $this->clear();
 
-        $this->fin = 1;
+        $this->fin = $fin ? 1 : 0;
         $this->rsv = 0;
         $this->opcode = $opcode;
         $this->maskBit = $mask ? 1 : 0;
