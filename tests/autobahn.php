@@ -47,11 +47,7 @@ switch($argv[1])
     case '--run-all':
         for($i = 1; $i < 518; $i++)
         {
-            $ws = new MyClient("ws://127.0.0.1:9001/runCase?case={$i}&agent=pSocket-client", [
-                'HANDSHAKE_TIMEOUT'     => 1,
-                'BUFFER_SIZE'           => 8 * 1024,
-                'LOG_LEVEL'             => 1
-            ]);
+            $ws = new MyClient("ws://127.0.0.1:9001/runCase?case={$i}&agent=pSocket-client");
             $ws->run();
         }
         break;
