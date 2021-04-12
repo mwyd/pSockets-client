@@ -1,6 +1,6 @@
 # pSockets-client
 
-[![Autobahn Testsuite](https://img.shields.io/badge/Autobahn-passing-brightgreen.svg)](http://http://40.113.98.97/)
+[![Autobahn Testsuite](https://img.shields.io/badge/Autobahn-passing-brightgreen.svg)](http://40.113.98.97/)
 
 Synchronous PHP websocket client
 
