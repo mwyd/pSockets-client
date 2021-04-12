@@ -39,6 +39,8 @@ abstract class WsClient implements WsConnection
     private StreamSocketClient $clientSocket;
 
     private array $config   = [
+        'FLAGS'                 => null,
+        'CONTEXT'               => null,
         'LOG_LEVEL'             => 1,
         'BUFFER_SIZE'           => 8192,
         'CONNECT_TIMEOUT'       => 10,
@@ -55,7 +57,12 @@ abstract class WsClient implements WsConnection
 
         try
         {
-            $this->clientSocket = new StreamSocketClient($address, $this->config['CONNECT_TIMEOUT']);
+            $this->clientSocket = new StreamSocketClient(
+                $address,
+                $this->config['CONNECT_TIMEOUT'],
+                $this->config['FLAGS'],
+                $this->config['CONTEXT']
+            );
             $this->isRunning = true;
         }
         catch(\Exception $e)
