@@ -13,7 +13,7 @@ function splitHeaders(string $headers) : array
     {
         if($key == 0)
         {
-            $exploded['method'] = $val;
+            $exploded['__head__'] = $val;
             continue;
         }
 

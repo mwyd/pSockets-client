@@ -28,7 +28,7 @@ abstract class WsClient implements WsConnection
     abstract protected function onClose() : void;
 
     public const REQUIRED_RESPONSE_HEADERS = [
-        'method'                => '101 Switching Protocols',
+        '__head__'              => '101',
         'upgrade'               => 'websocket',
         'connection'            => 'Upgrade',
         'sec-websocket-accept'  => ''
