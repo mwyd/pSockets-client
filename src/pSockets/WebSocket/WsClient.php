@@ -34,7 +34,8 @@ abstract class WsClient implements WsConnection
         'sec-websocket-accept'  => ''
     ];
 
-    private Logger $logger;
+    protected Logger $logger;
+    
     private StreamSocketClient $clientSocket;
 
     private array $config   = [
