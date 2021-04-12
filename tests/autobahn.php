@@ -47,7 +47,7 @@ switch($argv[1])
     case '--run-all':
         for($i = 1; $i < 518; $i++)
         {
-            $ws = new MyClient("ws://127.0.0.1:9001/runCase?case={$i}&agent=pSocket-client");
+            $ws = new MyClient("ws://127.0.0.1:9001/runCase?case={$i}&agent=pSocket-client_0.11");
             $ws->run();
         }
         break;
@@ -56,7 +56,7 @@ switch($argv[1])
         if($argc < 3) echo 'Unknown case number' . \PHP_EOL;
         else
         {
-            $ws = new MyClient("ws://127.0.0.1:9001/runCase?casetuple={$argv[2]}&agent=pSocket-client");
+            $ws = new MyClient("ws://127.0.0.1:9001/runCase?casetuple={$argv[2]}&agent=pSocket-client_0.11");
             $ws->run();
         }
         break;
