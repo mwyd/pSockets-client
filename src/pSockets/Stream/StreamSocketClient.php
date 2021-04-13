@@ -12,7 +12,7 @@ class StreamSocketClient
     public const WAIT_WR    = 1;
     public const WAIT_RDWR  = 2;
 
-    public function __construct(string $url, ?int $timeout = null, ?int $flags = null, mixed $context = null)
+    public function __construct(string $url, ?float $timeout = null, ?int $flags = null, mixed $context = null)
     {
         $this->url = parse_url($url);
 
@@ -43,9 +43,9 @@ class StreamSocketClient
             "{$this->url['scheme']}://{$this->url['host']}:{$this->url['port']}",
             $this->err['code'],
             $this->err['message'],
-            $timeout,
-            $flags,
-            $context
+            $timeout ?? ini_get("default_socket_timeout"),
+            $flags ?? \STREAM_CLIENT_CONNECT,
+            $context ?? stream_context_create()
         );
 
         if(!$this->stream) throw new \Exception($this->err['message'], $this->err['code']);
