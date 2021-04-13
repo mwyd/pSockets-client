@@ -40,7 +40,7 @@ abstract class WsClient
     * ]
     * @param array['FLAGS']?int alias of socket_create_client flags parameter
     * @param array['CONTEXT']mixed alias of socket_create_client context parameter
-    * @param array['CONNECT_TIMEOUT']int alias of socket_create_client timeout parameter
+    * @param array['CONNECT_TIMEOUT']?float alias of socket_create_client timeout parameter
     * @param array['LOG_LEVEL']int 0 => logs disabled, 1 => connect, disconnect, 2 => connect, disconnect, messages  
     * @param array['HANDSHAKE_TIMEOUT']int seconds
     */
@@ -171,7 +171,7 @@ class MyClient extends WsClient
             Logger::warn($e->getMessage());
         }
 
-        if($this->recvMessages == 3) $this->close();
+        if($this->recvMessages == 2) $this->close();
     }
 
     protected function onClose() : void
