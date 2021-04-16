@@ -31,7 +31,7 @@ trait StreamSocketBase
 
     public function isAlive() : bool
     {
-        return is_resource($this->stream);
+        return is_resource($this->stream) && !feof($this->stream);
     }
 
     public function shutdown(int $mode) : bool
@@ -41,7 +41,7 @@ trait StreamSocketBase
 
     public function close() : bool
     {
-        return $this->isAlive() ? fclose($this->stream) : false; 
+        return $this->isAlive() && fclose($this->stream);
     }
 
     public function getAddress() : string
