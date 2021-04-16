@@ -68,4 +68,14 @@ trait StreamSocketBase
     {
         return time() - $this->created;
     }
+
+    public function getLastError() : string
+    {
+        return $this->err['message'];
+    }
+
+    public function getLastErrno() : ?int
+    {
+        return $this->err['code'];
+    }
 }
